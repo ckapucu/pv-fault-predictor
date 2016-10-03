@@ -1,0 +1,7 @@
+{
+  "name": "mysql-via-nodejs",
+  "description": "A sample Node.js http server app using Mysql",
+  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "express", "static"],
+  "image": "heroku/nodejs"
+}

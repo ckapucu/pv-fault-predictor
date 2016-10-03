@@ -46,6 +46,9 @@ git push heroku master				//deploy
 heroku ps:scale web=1				//Ensure that at least one instance of the app is running
 heroku open					//open the website 
 
+https://serene-depths-19169.herokuapp.com/	diye açacak ama sonuna ekleme yapmamýz lazým aþaðýdaki gibi
+https://serene-depths-19169.herokuapp.com/api/users
+
 //to run locally
 cd mysql-via-nodejs
 npm install					//install the dependencies					
