@@ -40,8 +40,17 @@ NO	curl -i -H "Accept: application/json" -H "X-HTTP-Method-Override: DELETE" -X 
 
 
 cd mysql-via-nodejs
-heroku login					
+heroku login
+heroku create					//create an app
+git push heroku master				//deploy
+heroku ps:scale web=1				//Ensure that at least one instance of the app is running
+heroku open					//open the website 
+
+//to run locally
+cd mysql-via-nodejs
+npm install					//install the dependencies					
 heroku local web				//Run the app locally
+git init					//Initialize empty Git repository in C:/Users/Ceyhun/mysql-via-nodejs/.git/
 git add .					//add the modified files to the local git repository
 git commit -m "Demo"				//Now commit the changes to the repository
 git push heroku master				//deploy
