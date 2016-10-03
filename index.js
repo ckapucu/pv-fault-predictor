@@ -4,7 +4,7 @@ var bodyParser  = require("body-parser");
 var md5 = require('md5');
 var rest = require("./rest.js");
 var app  = express();
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 5000;
 
 function REST(){
     var self = this;
