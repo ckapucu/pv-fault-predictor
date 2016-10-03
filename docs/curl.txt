@@ -1,0 +1,47 @@
+curl -H "Content-Type: application/json" -d '{"name":"curl001","email":"deneme"}' http://localhost:8000/users
+
+
+GET-----------------
+OK	curl -XGET http://localhost:8000/api/users
+OK	curl -XGET http://localhost:8000/api/users/15
+OK	curl --header "Accept: application/json" http://localhost:8000/api/users/15
+OK	curl -i -H "Accept: application/json" http://localhost:8000/api/users
+OK	curl -i -H "Accept: application/json" http://localhost:8000/api/users/15
+
+POST-----------------
+OK	curl -i -H "Accept: application/json" -X POST -d "name=curl deneme&email=deneme" http://localhost:8000/api/users
+OK	curl -XPOST http://localhost:8000/api/users -d "name=curlden%20geldi&email=deneme"
+OK	curl -XPOST http://localhost:8000/api/users -d "name=curlden geldi&email=deneme"
+/////////
+NO	curl --header "Content-Type:application/json" --header "Accept: application/json" --request POST --data '{"name":"curl deneme", "email":"deneme"}' http://localhost:8000/api/users
+NO	curl -i -H "Accept: application/json" -X POST -d "name=curl deneme, email=deneme" http://localhost:8000/api/users
+NO	curl -i -H "Accept: application/json" -X POST -d '{"name":"curl deneme", "email":"deneme"}' http://localhost:8000/api/users
+NO	curl -XPOST http://localhost:8000/api/users -d '{"name"="curl deneme","email":"deneme"}"'
+NO	curl -XPOST http://localhost:8000/api/users -d "{"name"="curl deneme","email":"deneme"}""
+NO	curl -XPOST http://localhost:8000/api/users -d "{"name"="curl deneme","email":"deneme"}"""
+NO	curl -H "Content-Type: application/json" -d '{"name"="curl deneme","email":"deneme"}' http://localhost:8000/api/users
+NO	curl -H "Content-Type: application/json" -d '{'name'='curl deneme','email':'deneme'}' http://localhost:8000/api/users
+NO	curl -XPOST "Content-Type: application/json" http://localhost:8000/api/users -d '{"name"="curl deneme","email":"deneme"}'
+
+PUT-----------------
+NO	curl -i -H "Accept: application/json" -X PUT -d "name=CURL UPDATE&email=CURL UPDATE" http://localhost:8000/api/users/49
+OK	curl -i -H "Accept: application/json" -X PUT -d "name=CURL UPDATE&email=CURL UPDATE&recordno=39" http://localhost:8000/api/users
+//aþaðýdaki kod deðiþikliðindne sonra oldu yeni bir put daha ekledim parametreli üsttekide alttakide çalýþýr
+OK	curl -i -H "Accept: application/json" -X PUT -d "name=CURL UPDATE&email=CURL UPDATE" http://localhost:8000/api/users/49
+
+DELETE--------------
+OK	curl -i -H "Accept: application/json" -X DELETE http://localhost:8000/api/users/52
+NO	curl -i -H "Accept: application/json" -H "X-HTTP-Method-Override: DELETE" -X POST http://localhost:8000/api/users/51
+
+
+
+
+
+
+
+cd mysql-via-nodejs
+heroku login					
+heroku local web				//Run the app locally
+git add .					//add the modified files to the local git repository
+git commit -m "Demo"				//Now commit the changes to the repository
+git push heroku master				//deploy
