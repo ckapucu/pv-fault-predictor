@@ -41,7 +41,7 @@ REST.prototype.configureExpress = function(connection) {
 }
 
 REST.prototype.startServer = function() {
-      app.listen($PORT,function(){
+      app.listen(port,function(){
           console.log("All right ! I am alive at Port " + port);
       });
 }
