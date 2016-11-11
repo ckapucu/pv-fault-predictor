@@ -2,6 +2,7 @@ var express = require("express");
 var mysql   = require("mysql");
 var bodyParser  = require("body-parser");
 //var stormpath = require('express-stormpath');
+//bize stormpath uygun değil fazla, onun yerine daha basit http://passportjs.org/ tercih edilebilir
 var md5 = require('md5');
 var rest = require("./rest.js");
 var app  = express();

@@ -74,20 +74,41 @@ PANEL DATA CURL's
 
 POST
 ------------------
-curl -XPOST http://localhost:5000/api/pandat -d "panel_id=1&voc=1.1&isc=2.1&irradiation=3.1&cell_temp=4.1&amb_temp=5.1&humidity=6.1"
-curl -XPOST http://localhost:5000/api/pandat -d "panel_id=2&voc=1.2&isc=2.2&irradiation=3.2&cell_temp=4.2&amb_temp=5.2&humidity=6.2"
-curl -XPOST http://localhost:5000/api/pandat -d "panel_id=3&voc=1.3&isc=2.3&irradiation=3.3&cell_temp=4.3&amb_temp=5.3&humidity=6.3"
+curl -XPOST http://localhost:5000/api/pandat -d "pvs_id=1&panel_id=1&voc=1.1&isc=2.1&irradiation=3.1&cell_temp=4.1&amb_temp=5.1&humidity=6.1"
+curl -XPOST http://localhost:5000/api/pandat -d "pvs_id=1&panel_id=2&voc=1.2&isc=2.2&irradiation=3.2&cell_temp=4.2&amb_temp=5.2&humidity=6.2"
+curl -XPOST http://localhost:5000/api/pandat -d "pvs_id=1&panel_id=3&voc=1.3&isc=2.3&irradiation=3.3&cell_temp=4.3&amb_temp=5.3&humidity=6.3"
+----------remote
+curl -XPOST https://serene-depths-19169.herokuapp.com/api/pandat -d "pvs_id=1&panel_id=1&voc=1.1&isc=2.1&irradiation=3.1&cell_temp=4.1&amb_temp=5.1&humidity=6.1"
+curl -XPOST https://serene-depths-19169.herokuapp.com/api/pandat -d "pvs_id=1&panel_id=2&voc=1.2&isc=2.2&irradiation=3.2&cell_temp=4.2&amb_temp=5.2&humidity=6.2"
+curl -XPOST https://serene-depths-19169.herokuapp.com/api/pandat -d "pvs_id=1&panel_id=3&voc=1.3&isc=2.3&irradiation=3.3&cell_temp=4.3&amb_temp=5.3&humidity=6.3"
 
 GET
 ------------------
 curl -XGET http://localhost:5000/api/pandat
 curl -XGET http://localhost:5000/api/pandat/1
+----------remote
+curl -XGET https://serene-depths-19169.herokuapp.com/api/pandat		//tüm panel veerilerini çekme
+curl -XGET https://serene-depths-19169.herokuapp.com/api/pandat/1	//sadece pvs idsine göre tüm panellerin toplanmýþ verileri	
+curl -XGET https://serene-depths-19169.herokuapp.com/api/pandat/1/1	//pvs idsi ve panel idsine göre panel toplanmýþ verileri
 
 DELETE
 ------------------
 curl -i -H "Accept: application/json" -X DELETE http://localhost:5000/api/pandat/3
+----------remote
+curl -i -H "Accept: application/json" -X DELETE https://serene-depths-19169.herokuapp.com/api/pandat/1/3
+//pvs idsine ve panel idsine göre panele ait tüm toplanmýþ verileri silme
+
 
 PUT koymadým çünkü veriler deðiþmeyecek büyük ihtimal lazým olursa koyarýz
+
+POST
+------------------
+curl -XPOST https://serene-depths-19169.herokuapp.com/api/pvsdat -d "pvs_name=Deneme GES"
+
+GET
+------------------
+
+
 
 
 
@@ -97,3 +118,8 @@ PUT koymadým çünkü veriler deðiþmeyecek büyük ihtimal lazým olursa koyarýz
 set STORMPATH_CLIENT_APIKEY_ID=2MX20ON9RGIMPKFBAK5FKL1UJ
 set STORMPATH_CLIENT_APIKEY_SECRET=OfxQQrZKz1QjJHYlDj7qhPKAx
 set STORMPATH_APPLICATION_HREF=https://api.stormpath.com/v1/applications/1SbZDyiJDSKabH9wtRC8hr
+
+
+
+
+curl -XGET https://fast-peak-38197.herokuapp.com/clock/turkey/izmir

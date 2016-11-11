@@ -97,10 +97,11 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
     });
 
     //PANEL_DATA pandat diye kısaltalım http verb olarak
+    //panel verisi ekleme 
     router.post("/pandat",function(req,res){
-        var query = "INSERT INTO ??(??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?)";
-        var table = ["panel_data","panel_id","voc","isc","irradiation","cell_temp","amb_temp","humidity", 
-        			req.body.panel_id, req.body.voc, req.body.isc, req.body.irradiation, req.body.cell_temp, req.body.amb_temp, req.body.humidity];
+        var query = "INSERT INTO ??(??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?)";
+        var table = ["panel_data","pvs_id","panel_id","voc","isc","irradiation","cell_temp","amb_temp","humidity", 
+        			req.body.pvs_id, req.body.panel_id, req.body.voc, req.body.isc, req.body.irradiation, req.body.cell_temp, req.body.amb_temp, req.body.humidity];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
@@ -111,6 +112,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         });
     });
 
+    //tüm panel veerilerini çekme
     router.get("/pandat",function(req,res){
         var query = "SELECT * FROM ??";
         var table = ["panel_data"];
@@ -124,9 +126,11 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         });
     });
 
-    router.get("/pandat/:panel_id",function(req,res){
-        var query = "SELECT * FROM ?? WHERE ??=? ORDER BY created";
-        var table = ["panel_data","panel_id",req.params.panel_id];
+    //pandat/:panel_id iken /pandat/pvs_id/panel_id şekline değişti
+    //pvs idsi ve panel idsine göre panel toplanmış verileri
+    router.get("/pandat/:pvs_id/:panel_id",function(req,res){
+        var query = "SELECT * FROM ?? WHERE ??=? AND ??=? ORDER BY pvs_id, panel_id, created";
+        var table = ["panel_data","pvs_id","panel_id",req.params.pvs_id,req.params.panel_id];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
@@ -137,9 +141,25 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         });
     });
 
-    router.delete("/pandat/:panel_id",function(req,res){
-        var query = "DELETE from ?? WHERE ??=?";
-        var table = ["panel_data","panel_id",req.params.panel_id];
+    //bu nedenle aşağıdakini ekledim pvs_id'ye göre panelleri çeksin
+    //sadece pvs idsine göre tüm panellerin toplanmış verileri 
+    router.get("/pandat/:pvs_id",function(req,res){
+        var query = "SELECT * FROM ?? WHERE ??=? ORDER BY panel_id, created";
+        var table = ["panel_data","pvs_id",req.params.pvs_id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Pandat" : rows});
+            }
+        });
+    });    
+
+    //pvs idsine ve panel idsine göre panele ait tüm toplanmış verileri silme
+    router.delete("/pandat/:pvs_id/:panel_id",function(req,res){
+        var query = "DELETE from ?? WHERE ??=? AND ??=?";
+        var table = ["panel_data","pvs_id","panel_id",req.params.pvs_id,req.params.panel_id];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
@@ -148,8 +168,65 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
                 res.json({"Error" : false, "Message" : "Deleted all panel data with panel id "+req.params.panel_id});
             }
         });
+    }); 
+
+    //fotovoltaik sistem ekleme 
+    router.post("/pvsdat",function(req,res){
+        var query = "INSERT INTO ??(??) VALUES (?)";
+        var table = ["pvs_data","pvs_name",req.body.pvs_name];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Panel Data Added !"});
+            }
+        });
+    });
+
+    //tüm fotovoltaik sistemler
+    router.get("/pvsdat",function(req,res){
+        var query = "SELECT * FROM ??";
+        var table = ["pvs_data"];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Pandat" : rows});
+            }
+        });
     });    
 
+    //pvs idsine göre tüm fotovoltaik sistemler
+    router.get("/pvsdat/:recordno",function(req,res){
+        var query = "SELECT * FROM ?? WHERE ??=? ORDER BY recordno";
+        var table = ["pvs_data","recordno",req.params.recordno];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Pandat" : rows});
+            }
+        });
+    });
+
+    //pvs idsine göre fotovoltaik sistem silme
+    /* BENCE BU OLMASIN çünkü altında paneller olan fotovoltaik silinmemeli yada hemena rdından panellerin verileri de silinmeli
+    router.delete("/pvsdat/:pvs_id",function(req,res){
+        var query = "DELETE from ?? WHERE ??=?";
+        var table = ["pvs_data","pvs_id",req.params.pvs_id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Deleted all panel data with panel id "+req.params.panel_id});
+            }
+        });
+    });     
+    /**/
 }
 
 module.exports = REST_ROUTER;
