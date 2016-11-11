@@ -130,7 +130,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
     //pvs idsi ve panel idsine göre panel toplanmış verileri
     router.get("/pandat/:pvs_id/:panel_id",function(req,res){
         var query = "SELECT * FROM ?? WHERE ??=? AND ??=? ORDER BY pvs_id, panel_id, created";
-        var table = ["panel_data","pvs_id","panel_id",req.params.pvs_id,req.params.panel_id];
+        var table = ["panel_data","pvs_id","panel_id",req.params[0],req.params[1]];      //req.params.pvs_id,req.params.panel_id];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
@@ -165,7 +165,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             } else {
-                res.json({"Error" : false, "Message" : "Deleted all panel data with panel id "+req.params.panel_id});
+                res.json({"Error" : false, "Message" : "Deleted all panel data with pvsid "+req.params.pvs_id+" panel id "+req.params.panel_id});
             }
         });
     }); 
@@ -179,7 +179,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             } else {
-                res.json({"Error" : false, "Message" : "Panel Data Added !"});
+                res.json({"Error" : false, "Message" : "PV Sistem Data Added !"});
             }
         });
     });
@@ -193,7 +193,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             } else {
-                res.json({"Error" : false, "Message" : "Success", "Pandat" : rows});
+                res.json({"Error" : false, "Message" : "Success", "Pvsdat" : rows});
             }
         });
     });    
@@ -207,7 +207,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             } else {
-                res.json({"Error" : false, "Message" : "Success", "Pandat" : rows});
+                res.json({"Error" : false, "Message" : "Success", "Pvsdat" : rows});
             }
         });
     });
