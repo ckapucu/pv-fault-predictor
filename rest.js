@@ -159,7 +159,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
     //pvs idsine ve panel idsine göre panele ait tüm toplanmış verileri silme
     router.delete("/pandat/:pvs_id/:panel_id",function(req,res){
         var query = "DELETE from ?? WHERE ??=? AND ??=?";
-        var table = ["panel_data","pvs_id","panel_id",req.params.pvs_id,req.params.panel_id];
+        var table = ["panel_data","pvs_id",req.params.pvs_id,"panel_id",req.params.panel_id];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
