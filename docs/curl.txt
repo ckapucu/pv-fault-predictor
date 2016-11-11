@@ -33,9 +33,11 @@ NO	curl -XPOST "Content-Type: application/json" http://localhost:5000/api/users 
 
 PUT-----------------
 NO	curl -i -H "Accept: application/json" -X PUT -d "name=CURL UPDATE&email=CURL UPDATE" http://localhost:5000/api/users/49
-OK	curl -i -H "Accept: application/json" -X PUT -d "name=CURL UPDATE&email=CURL UPDATE&recordno=39" http://localhost:5000/api/users
+OK	curl -i -H "Accept: application/json" -X PUT -d "name=CURL UPDATE&email=CURL UPDATE&recordno=37" http://localhost:5000/api/users
+OK	curl -i -H "Accept: application/json" -X PUT -d "name=CURL UPDATE&email=CURL UPDATE&recordno=37" https://serene-depths-19169.herokuapp.com/api/users
 //aþaðýdaki kod deðiþikliðindne sonra oldu yeni bir put daha ekledim parametreli üsttekide alttakide çalýþýr
-OK	curl -i -H "Accept: application/json" -X PUT -d "name=CURL UPDATE&email=CURL UPDATE" http://localhost:5000/api/users/49
+OK	curl -i -H "Accept: application/json" -X PUT -d "name=CURL UPDATE&email=CURL UPDATE" http://localhost:5000/api/users/37
+OK	curl -i -H "Accept: application/json" -X PUT -d "name=CURL UPDATE&email=CURL UPDATE" https://serene-depths-19169.herokuapp.com/api/users/37
 
 DELETE--------------
 OK	curl -i -H "Accept: application/json" -X DELETE http://localhost:5000/api/users/52

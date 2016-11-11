@@ -236,14 +236,15 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
 
     router.put("/pvsdat/:recordno",function(req,res){
         var query = "UPDATE ?? SET ?? = ? WHERE recordno = ?";
-        var table = ["pvsdat",req.query.field,req.body.value,req.params.recordno];
+        var table = ["pvs_data",req.body.field,req.body.value,req.params.recordno];
         query = mysql.format(query,table);
+        console.log("Query " + query);
         connection.query(query,function(err,rows){
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             } else {
                 //res.json({"Error" : false, "Message" : "Updated the email for name "+req.body.email});
-                res.json({"Error" : false, "Message" : "Updated field "+req.query.field+" to "+req.body.value+" for recordno "+req.params.recordno});
+                res.json({"Error" : false, "Message" : "Updated field "+req.body.field+" to "+req.body.value+" for recordno "+req.params.recordno});
             }
         });
     });
@@ -252,7 +253,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
     //curl -i -H "Accept: application/json" -X PUT -d "value=28.363" https://serene-depths-19169.herokuapp.com/api/pvsdat/1/longitude
     router.put("/pvsdat/:recordno/:field",function(req,res){
         var query = "UPDATE ?? SET ?? = ? WHERE recordno = ?";
-        var table = ["pvsdat",req.params.field,req.body.value,req.params.recordno];
+        var table = ["pvs_data",req.params.field,req.body.value,req.params.recordno];
         query = mysql.format(query,table);
         console.log("Query " + query);
         connection.query(query,function(err,rows){
