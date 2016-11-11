@@ -58,6 +58,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         var query = "UPDATE ?? SET ?? = ?, ?? = ? WHERE ?? = ?";
         var table = ["users","name",req.body.name,"email",req.body.email, "recordno",req.body.recordno];
         query = mysql.format(query,table);
+        console.log("Query " + query);
         connection.query(query,function(err,rows){
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
@@ -73,6 +74,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         var query = "UPDATE ?? SET ?? = ?, ?? = ? WHERE recordno = ?";
         var table = ["users","name",req.body.name,"email",req.body.email, req.params.recordno];
         query = mysql.format(query,table);
+        console.log("Query " + query);
         connection.query(query,function(err,rows){
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
