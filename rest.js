@@ -188,7 +188,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
 
     //tüm fotovoltaik sistemler
     router.get("/pvsdat",function(req,res){
-        var query = "SELECT * FROM ??";
+        var query = "SELECT * FROM ?? WHERE 1=2";
         var table = ["pvs_data"];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){

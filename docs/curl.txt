@@ -114,9 +114,12 @@ curl -XGET https://serene-depths-19169.herokuapp.com/api/pvsdat		//tüm fotovolta
 curl -XGET https://serene-depths-19169.herokuapp.com/api/pvsdat/1	//pvs idsine göre tüm fotovoltaik sistemler
 
 
-PUT
+PUT	:) her iki verb'de çalýþýyor
 ------------------
-curl -i -H "Accept: application/json" -X PUT -d "name=CURL UPDATE&email=CURL UPDATE" https://serene-depths-19169.herokuapp.com/api/pvsdat/1
+OK	curl -i -H "Accept: application/json" -X PUT -d "field=latitude&value=37.215" https://serene-depths-19169.herokuapp.com/api/pvsdat/1
+OK	curl -i -H "Accept: application/json" -X PUT -d "field=longitude&value=28.363" https://serene-depths-19169.herokuapp.com/api/pvsdat/1
+OK	curl -i -H "Accept: application/json" -X PUT -d "value=37.215" https://serene-depths-19169.herokuapp.com/api/pvsdat/1/latitude
+OK	curl -i -H "Accept: application/json" -X PUT -d "value=28.363" https://serene-depths-19169.herokuapp.com/api/pvsdat/1/longitude
 
 
 
