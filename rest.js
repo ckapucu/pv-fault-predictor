@@ -252,6 +252,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         var query = "UPDATE ?? SET ?? = ? WHERE recordno = ?";
         var table = ["pvsdat",req.params.field,req.body.value,req.params.recordno];
         query = mysql.format(query,table);
+        console.log("Query " + query);
         connection.query(query,function(err,rows){
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
