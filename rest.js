@@ -234,7 +234,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
 
     router.put("/pvsdat/:recordno",function(req,res){
         var query = "UPDATE ?? SET ?? = ? WHERE recordno = ?";
-        var table = ["pvsdat",req.body.field,req.query.value,req.params.recordno];
+        var table = ["pvsdat",req.query.field,req.body.value,req.params.recordno];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
