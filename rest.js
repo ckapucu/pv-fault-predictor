@@ -230,9 +230,10 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
 
     //pvs_id'sine göre istenilen alanı güncelleme
     //curl -i -H "Accept: application/json" -X PUT -d "field=latitude&value=37.215" https://serene-depths-19169.herokuapp.com/api/pvsdat/1
+    //curl -i -H "Accept: application/json" -X PUT -d "field=longitude&value=28.363" https://serene-depths-19169.herokuapp.com/api/pvsdat/1
 
     router.put("/pvsdat/:recordno",function(req,res){
-        var query = "UPDATE ?? SET ? = ? WHERE recordno = ?";
+        var query = "UPDATE ?? SET ?? = ? WHERE recordno = ?";
         var table = ["pvsdat",req.body.field,req.body.value,req.params.recordno];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
