@@ -241,10 +241,26 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             } else {
                 //res.json({"Error" : false, "Message" : "Updated the email for name "+req.body.email});
-                res.json({"Error" : false, "Message" : "Updated field "+req.body.field+" to "+req.body.value+" for recordno "+req.params.recordno});
+                res.json({"Error" : false, "Message" : "Updated field "+req.query.field+" to "+req.body.value+" for recordno "+req.params.recordno});
             }
         });
-    });     
+    });
+
+    //curl -i -H "Accept: application/json" -X PUT -d "value=37.215" https://serene-depths-19169.herokuapp.com/api/pvsdat/1/latitude
+    //curl -i -H "Accept: application/json" -X PUT -d "value=28.363" https://serene-depths-19169.herokuapp.com/api/pvsdat/1/longitude
+    router.put("/pvsdat/:recordno/:field",function(req,res){
+        var query = "UPDATE ?? SET ?? = ? WHERE recordno = ?";
+        var table = ["pvsdat",req.params.field,req.body.value,req.params.recordno];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                //res.json({"Error" : false, "Message" : "Updated the email for name "+req.body.email});
+                res.json({"Error" : false, "Message" : "Updated field "+req.params.field+" to "+req.body.value+" for recordno "+req.params.recordno});
+            }
+        });
+    });       
 }
 
 module.exports = REST_ROUTER;
