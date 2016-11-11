@@ -21,7 +21,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 res.json({"Error" : false, "Message" : "User Added !"});
             }
@@ -34,7 +34,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Users" : rows});
             }
@@ -47,7 +47,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Users" : rows});
             }
@@ -61,7 +61,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         console.log("Query " + query);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 //res.json({"Error" : false, "Message" : "Updated the email for name "+req.body.email});
                 res.json({"Error" : false, "Message" : "Updated all fields for recordno "+req.body.recordno});
@@ -77,7 +77,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         console.log("Query " + query);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 //res.json({"Error" : false, "Message" : "Updated the email for name "+req.body.email});
                 res.json({"Error" : false, "Message" : "Updated all fields for recordno "+req.params.recordno});
@@ -91,7 +91,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 res.json({"Error" : false, "Message" : "Deleted the user with recordno "+req.params.recordno});
             }
@@ -107,7 +107,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 res.json({"Error" : false, "Message" : "Panel Data Added !"});
             }
@@ -121,7 +121,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Pandat" : rows});
             }
@@ -136,7 +136,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Pandat" : rows});
             }
@@ -151,7 +151,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Pandat" : rows});
             }
@@ -165,7 +165,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 res.json({"Error" : false, "Message" : "Deleted all panel data with pvsid "+req.params.pvs_id+" panel id "+req.params.panel_id});
             }
@@ -179,7 +179,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 res.json({"Error" : false, "Message" : "PV Sistem Data Added !"});
             }
@@ -188,12 +188,12 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
 
     //tüm fotovoltaik sistemler
     router.get("/pvsdat",function(req,res){
-        var query = "SELECT * FROM ?? WHERE 1=2";
+        var query = "SELECT * FROM ??";
         var table = ["pvs_data"];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Pvsdat" : rows});
             }
@@ -207,12 +207,29 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Pvsdat" : rows});
             }
         });
     });
+
+
+    //pvs idsine göre tüm fotovoltaik paneller
+    router.get("/pvspan/:pvs_id",function(req,res){
+        //var query = "SELECT * FROM ?? WHERE ??=? ORDER BY panel_id";
+        var query = "SELECT DISTINCT panel_id FROM ?? WHERE ??=? ORDER BY panel_id";
+        var table = ["panel_data","pvs_id",req.params.pvs_id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Pvspan" : rows});
+            }
+        });
+    });
+
 
     //pvs idsine göre fotovoltaik sistem silme
     /* BENCE BU OLMASIN çünkü altında paneller olan fotovoltaik silinmemeli yada hemena rdından panellerin verileri de silinmeli
@@ -241,7 +258,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         console.log("Query " + query);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 //res.json({"Error" : false, "Message" : "Updated the email for name "+req.body.email});
                 res.json({"Error" : false, "Message" : "Updated field "+req.body.field+" to "+req.body.value+" for recordno "+req.params.recordno});
@@ -258,7 +275,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         console.log("Query " + query);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing SQL query"});
             } else {
                 //res.json({"Error" : false, "Message" : "Updated the email for name "+req.body.email});
                 res.json({"Error" : false, "Message" : "Updated field "+req.params.field+" to "+req.body.value+" for recordno "+req.params.recordno});
