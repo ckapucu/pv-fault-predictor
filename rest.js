@@ -227,6 +227,23 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         });
     });     
     /**/
+
+    //pvs_id'sine göre istenilen alanı güncelleme
+    //curl -i -H "Accept: application/json" -X PUT -d "field=latitude&value=37.215" https://serene-depths-19169.herokuapp.com/api/pvsdat/1
+
+    router.put("/pvsdat/:recordno",function(req,res){
+        var query = "UPDATE ?? SET ? = ? WHERE recordno = ?";
+        var table = ["pvsdat",req.body.field,req.body.value,req.params.recordno];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+            } else {
+                //res.json({"Error" : false, "Message" : "Updated the email for name "+req.body.email});
+                res.json({"Error" : false, "Message" : "Updated field "+req.body.field+" to "+req.body.value+" for recordno "+req.params.recordno});
+            }
+        });
+    });     
 }
 
 module.exports = REST_ROUTER;

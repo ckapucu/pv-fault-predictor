@@ -86,6 +86,7 @@ GET
 ------------------
 curl -XGET http://localhost:5000/api/pandat
 curl -XGET http://localhost:5000/api/pandat/1
+curl -XGET http://localhost:5000/api/pandat/1/1
 ----------remote
 curl -XGET https://serene-depths-19169.herokuapp.com/api/pandat		//tüm panel veerilerini çekme
 curl -XGET https://serene-depths-19169.herokuapp.com/api/pandat/1	//sadece pvs idsine göre tüm panellerin toplanmýþ verileri	
@@ -93,7 +94,7 @@ curl -XGET https://serene-depths-19169.herokuapp.com/api/pandat/1/1	//pvs idsi v
 
 DELETE
 ------------------
-curl -i -H "Accept: application/json" -X DELETE http://localhost:5000/api/pandat/3
+curl -i -H "Accept: application/json" -X DELETE http://localhost:5000/api/pandat/1/3
 ----------remote
 curl -i -H "Accept: application/json" -X DELETE https://serene-depths-19169.herokuapp.com/api/pandat/1/3
 //pvs idsine ve panel idsine göre panele ait tüm toplanmýþ verileri silme
@@ -107,6 +108,30 @@ curl -XPOST https://serene-depths-19169.herokuapp.com/api/pvsdat -d "pvs_name=De
 
 GET
 ------------------
+curl -XGET https://serene-depths-19169.herokuapp.com/api/pvsdat		//tüm fotovoltaik sistemler
+curl -XGET https://serene-depths-19169.herokuapp.com/api/pvsdat/1	//pvs idsine göre tüm fotovoltaik sistemler
+
+
+PUT
+------------------
+curl -i -H "Accept: application/json" -X PUT -d "name=CURL UPDATE&email=CURL UPDATE" https://serene-depths-19169.herokuapp.com/api/pvsdat/1
+
+
+
+
+
+
+
+
+GET CLOCK
+curl -XGET https://fast-peak-38197.herokuapp.com/clock/turkey/izmir
+
+
+
+
+
+
+
 
 
 
@@ -118,8 +143,3 @@ GET
 set STORMPATH_CLIENT_APIKEY_ID=2MX20ON9RGIMPKFBAK5FKL1UJ
 set STORMPATH_CLIENT_APIKEY_SECRET=OfxQQrZKz1QjJHYlDj7qhPKAx
 set STORMPATH_APPLICATION_HREF=https://api.stormpath.com/v1/applications/1SbZDyiJDSKabH9wtRC8hr
-
-
-
-
-curl -XGET https://fast-peak-38197.herokuapp.com/clock/turkey/izmir
