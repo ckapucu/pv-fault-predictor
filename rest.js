@@ -189,7 +189,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
     //tüm fotovoltaik sistemler
     router.get("/pvsdat",function(req,res){
         //var query = "SELECT * FROM ??";
-        var query = "SELECT pvs_name, (SELECT count(DISTINCT panel_id) FROM panel_data WHERE pvs_id=pvs_data.recordno) as panel_count FROM ??";
+        var query = "SELECT recordno, pvs_name, (SELECT count(DISTINCT panel_id) FROM panel_data WHERE pvs_id=pvs_data.recordno) as panel_count FROM ??";
         var table = ["pvs_data"];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
