@@ -3,14 +3,14 @@
 
 //bu adrestede dosyaya ayzdıran ve oradan okuyanı var https://www.tutorialspoint.com/nodejs/nodejs_restful_api.htm
 
-//security için denenebilir https://stormpath.com/blog/tutorial-build-rest-api-mobile-apps-using-node-js
-var mysql = require("mysql");
-function REST_ROUTER(router,connection,md5) {
-    var self = this;
-    self.handleRoutes(router,connection,md5);
-}
+    //security için denenebilir https://stormpath.com/blog/tutorial-build-rest-api-mobile-apps-using-node-js
+    var mysql = require("mysql");
+    function REST_ROUTER(router,connection,md5) {
+        var self = this;
+        self.handleRoutes(router,connection,md5);
+    }
 
-REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
+    REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
     router.get("/",function(req,res){
            res.json({"Message" : "Hello World !"});
     });
@@ -21,7 +21,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
                 res.json({"Error" : false, "Message" : "User Added !"});
             }
@@ -34,7 +34,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Users" : rows});
             }
@@ -47,7 +47,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Users" : rows});
             }
@@ -61,7 +61,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         console.log("Query " + query);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
                 //res.json({"Error" : false, "Message" : "Updated the email for name "+req.body.email});
                 res.json({"Error" : false, "Message" : "Updated all fields for recordno "+req.body.recordno});
@@ -77,7 +77,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         console.log("Query " + query);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
                 //res.json({"Error" : false, "Message" : "Updated the email for name "+req.body.email});
                 res.json({"Error" : false, "Message" : "Updated all fields for recordno "+req.params.recordno});
@@ -91,14 +91,18 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
                 res.json({"Error" : false, "Message" : "Deleted the user with recordno "+req.params.recordno});
             }
         });
     });
 
+
+
+
     //PANEL_DATA pandat diye kısaltalım http verb olarak
+	
     //panel verisi ekleme 
     router.post("/pandat",function(req,res){
         var query = "INSERT INTO ??(??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?)";
@@ -107,51 +111,51 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
-                res.json({"Error" : false, "Message" : "Panel Data Added !"});
+                res.json({"Error" : false, "Message" : "Panel verisi eklendi !"});
             }
         });
     });
 
-    //tüm panel veerilerini çekme
+    //tüm sistemlere ait panel verilerini çekme
     router.get("/pandat",function(req,res){
         var query = "SELECT * FROM ??";
         var table = ["panel_data"];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Pandat" : rows});
             }
         });
     });
 
-    //pandat/:panel_id iken /pandat/pvs_id/panel_id şekline değişti
-    //pvs idsi ve panel idsine göre panel toplanmış verileri
+
+    //fotovoltaik sistem ID'si ve panel ID'sine göre toplanmış verileri çekme
     router.get("/pandat/:pvs_id/:panel_id",function(req,res){
-        var query = "SELECT * FROM ?? WHERE ??=? AND ??=? ORDER BY pvs_id, panel_id, created";
+        var query = "SELECT * FROM ?? WHERE ??=? AND ??=? ORDER BY pvs_id, panel_id, created DESC";
         var table = ["panel_data","pvs_id",req.params.pvs_id,"panel_id",req.params.panel_id];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Pandat" : rows});
             }
         });
     });
 
-    //bu nedenle aşağıdakini ekledim pvs_id'ye göre panelleri çeksin
-    //sadece pvs idsine göre tüm panellerin toplanmış verileri 
+
+    //sadece fotovoltaik sistem ID'sine göre o sistemdeki tüm panellerin verilerini çekme
     router.get("/pandat/:pvs_id",function(req,res){
         var query = "SELECT * FROM ?? WHERE ??=? ORDER BY panel_id, created";
         var table = ["panel_data","pvs_id",req.params.pvs_id];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Pandat" : rows});
             }
@@ -165,9 +169,9 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
-                res.json({"Error" : false, "Message" : "Deleted all panel data with pvsid "+req.params.pvs_id+" panel id "+req.params.panel_id});
+                res.json({"Error" : false, "Message" : "Silinen panel verileri pvsid: "+req.params.pvs_id+" panel id: "+req.params.panel_id});
             }
         });
     }); 
@@ -179,9 +183,9 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
-                res.json({"Error" : false, "Message" : "PV Sistem Data Added !"});
+                res.json({"Error" : false, "Message" : "PV sistem verisi eklendi !"});
             }
         });
     });
@@ -194,7 +198,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Pvsdat" : rows});
             }
@@ -208,7 +212,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Pvsdat" : rows});
             }
@@ -224,7 +228,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Pvspan" : rows});
             }
@@ -233,7 +237,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
 
 
     //pvs idsine göre fotovoltaik sistem silme
-    /* BENCE BU OLMASIN çünkü altında paneller olan fotovoltaik silinmemeli yada hemena rdından panellerin verileri de silinmeli
+    /* BENCE BU OLMASIN çünkü altında paneller olan fotovoltaik silinmemeli yada hemen ardından panellerin verileri de silinmeli
     router.delete("/pvsdat/:pvs_id",function(req,res){
         var query = "DELETE from ?? WHERE ??=?";
         var table = ["pvs_data","pvs_id",req.params.pvs_id];
@@ -251,7 +255,6 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
     //pvs_id'sine göre istenilen alanı güncelleme
     //curl -i -H "Accept: application/json" -X PUT -d "field=latitude&value=37.215" https://serene-depths-19169.herokuapp.com/api/pvsdat/1
     //curl -i -H "Accept: application/json" -X PUT -d "field=longitude&value=28.363" https://serene-depths-19169.herokuapp.com/api/pvsdat/1
-
     router.put("/pvsdat/:recordno",function(req,res){
         var query = "UPDATE ?? SET ?? = ? WHERE recordno = ?";
         var table = ["pvs_data",req.body.field,req.body.value,req.params.recordno];
@@ -259,14 +262,15 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         console.log("Query " + query);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
                 //res.json({"Error" : false, "Message" : "Updated the email for name "+req.body.email});
-                res.json({"Error" : false, "Message" : "Updated field "+req.body.field+" to "+req.body.value+" for recordno "+req.params.recordno});
+                res.json({"Error" : false, "Message" : "Guncellenen alan "+req.body.field+" to "+req.body.value+" recordno "+req.params.recordno});
             }
         });
     });
 
+    //pvs_id'sine göre belirtilen alanı güncelleme
     //curl -i -H "Accept: application/json" -X PUT -d "value=37.215" https://serene-depths-19169.herokuapp.com/api/pvsdat/1/latitude
     //curl -i -H "Accept: application/json" -X PUT -d "value=28.363" https://serene-depths-19169.herokuapp.com/api/pvsdat/1/longitude
     router.put("/pvsdat/:recordno/:field",function(req,res){
@@ -276,10 +280,10 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,md5) {
         console.log("Query " + query);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing SQL query"});
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
                 //res.json({"Error" : false, "Message" : "Updated the email for name "+req.body.email});
-                res.json({"Error" : false, "Message" : "Updated field "+req.params.field+" to "+req.body.value+" for recordno "+req.params.recordno});
+                res.json({"Error" : false, "Message" : "Guncellenen alan "+req.params.field+" to "+req.body.value+" recordno "+req.params.recordno});
             }
         });
     });       
