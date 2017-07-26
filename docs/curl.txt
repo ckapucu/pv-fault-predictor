@@ -46,6 +46,21 @@ NO	curl -i -H "Accept: application/json" -H "X-HTTP-Method-Override: DELETE" -X 
 
 
 
+cd serene-depths-19169
+heroku login
+git init					//Initialize empty Git repository in C:/Users/Ceyhun/mysql-via-nodejs/.git/
+git add .					//add the modified files to the local git repository
+git commit -m "Demo"				//Now commit the changes to the repository
+git push heroku master				//deploy
+
+
+POST
+------------------
+curl -XPOST https://serene-depths-19169.herokuapp.com/api/room -d "temp_in=22.00&hum_in=22.00&temp_out=33.46&hum_out=32.00"
+
+GET
+------------------
+curl -XGET https://serene-depths-19169.herokuapp.com/api/room
 
 
 

@@ -296,7 +296,7 @@
             if(err) {
                 res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
-                res.json({"Error" : false, "Message" : "İç ve dış iklim verileri eklendi !"});
+                res.json({"Error" : false, "Message" : "Room and outer conditions added to Heroku!"});
             }
         });
     });
