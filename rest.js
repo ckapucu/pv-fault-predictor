@@ -286,7 +286,33 @@
                 res.json({"Error" : false, "Message" : "Guncellenen alan "+req.params.field+" to "+req.body.value+" recordno "+req.params.recordno});
             }
         });
-    });       
+    });
+
+    router.post("/room",function(req,res){
+        var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
+        var table = ["room_data","temp_in","hum_in","temp_out","hum_out",req.body.temp_in,req.body.hum_in,req.body.temp_out,req.body.hum_out];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "İç ve dış iklim verileri eklendi !"});
+            }
+        });
+    });
+
+    router.get("/room",function(req,res){
+        var query = "SELECT * FROM ??";
+        var table = ["room_data"];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Room" : rows});
+            }
+        });
+    });	
 }
 
 module.exports = REST_ROUTER;
