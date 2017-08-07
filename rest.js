@@ -235,7 +235,6 @@
         });
     });
 
-
     //pvs idsine göre fotovoltaik sistem silme
     /* BENCE BU OLMASIN çünkü altında paneller olan fotovoltaik silinmemeli yada hemen ardından panellerin verileri de silinmeli
     router.delete("/pvsdat/:pvs_id",function(req,res){
@@ -269,7 +268,7 @@
             }
         });
     });
-
+	
     //pvs_id'sine göre belirtilen alanı güncelleme
     //curl -i -H "Accept: application/json" -X PUT -d "value=37.215" https://serene-depths-19169.herokuapp.com/api/pvsdat/1/latitude
     //curl -i -H "Accept: application/json" -X PUT -d "value=28.363" https://serene-depths-19169.herokuapp.com/api/pvsdat/1/longitude
