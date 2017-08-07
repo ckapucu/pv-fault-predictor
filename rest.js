@@ -105,9 +105,9 @@
 	
     //panel verisi ekleme 
     router.post("/pandat",function(req,res){
-        var query = "INSERT INTO ??(??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?)";
-        var table = ["panel_data","pvs_id","panel_id","voc","isc","irradiation","cell_temp","amb_temp","humidity", 
-        			req.body.pvs_id, req.body.panel_id, req.body.voc, req.body.isc, req.body.irradiation, req.body.cell_temp, req.body.amb_temp, req.body.humidity];
+        var query = "INSERT INTO ??(??,??,??,??,??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        var table = ["panel_data","pvs_id","panel_id","voc","isc","irradiation","cell_temp","amb_temp","humidity","cell_temp0","cell_temp1","cell_temp2","cell_temp3","cell_temp4", 
+        			req.body.pvs_id, req.body.panel_id, req.body.voc, req.body.isc, req.body.irradiation, req.body.cell_temp, req.body.amb_temp, req.body.humidity, req.body.cell_temp0, req.body.cell_temp1, req.body.cell_temp2, req.body.cell_temp3, req.body.cell_temp4];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
