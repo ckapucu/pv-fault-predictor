@@ -312,6 +312,32 @@
             }
         });
     });	
+	
+	router.post("/battery",function(req,res){
+        var query = "INSERT INTO ??(??,??,??,??,??) VALUES (?,?,?,?,?)";
+        var table = ["battery_data","bus_v","shunt_v","load_v","current","power",req.body.bus_v,req.body.shunt_v,req.body.load_v,req.body.current,req.body.power];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Battery conditions added to Heroku!"});
+            }
+        });
+    });
+
+    router.get("/battery",function(req,res){
+        var query = "SELECT * FROM ??";
+        var table = ["battery_data"];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Room" : rows});
+            }
+        });
+    });		
 }
 
 module.exports = REST_ROUTER;
