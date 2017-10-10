@@ -341,7 +341,7 @@
 	
     router.get("/battery/:limit",function(req,res){
         var query = "SELECT * FROM ?? ORDER BY recordno DESC LIMIT ?";
-		var table = ["battery_data",req.body.limit];
+		var table = ["battery_data",limit];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
