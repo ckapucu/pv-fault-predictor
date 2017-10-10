@@ -327,7 +327,7 @@
     });
 
     router.get("/battery",function(req,res){
-        var query = "SELECT * FROM ??";
+        var query = "SELECT * FROM ?? ORDER BY recordno DESC";
         var table = ["battery_data"];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
