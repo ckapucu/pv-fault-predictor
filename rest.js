@@ -334,10 +334,23 @@
             if(err) {
                 res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
-                res.json({"Error" : false, "Message" : "Success", "Room" : rows});
+                res.json({"Error" : false, "Message" : "Success", "Battery" : rows});
             }
         });
     });		
+	
+    router.get("/battery/:limit",function(req,res){
+        var query = "SELECT * FROM ?? ORDER BY recordno DESC LIMIT ?";
+        var table = ["battery_data"];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Battery" : rows});
+            }
+        });
+    });	
 }
 
 module.exports = REST_ROUTER;
