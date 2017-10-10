@@ -339,9 +339,9 @@
         });
     });		
 	
-    router.get("/battery/:limit",function(req,res){
-        var query = "SELECT * FROM ?? ORDER BY recordno DESC LIMIT ?";
-		var table = ["battery_data",limit];
+    router.get("/battery/limit",function(req,res){
+        var query = "SELECT * FROM ?? ORDER BY recordno DESC LIMIT 50";
+		var table = ["battery_data"];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
