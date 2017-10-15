@@ -105,9 +105,9 @@
 	
     //panel verisi ekleme 
     router.post("/pandat",function(req,res){
-        var query = "INSERT INTO ??(??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        var table = ["panel_data","pvs_id","panel_id","voc","isc","irradiation","cell_temp","amb_temp","humidity","cell_temp0","cell_temp1","cell_temp2","cell_temp3","cell_temp_avg","battery_bus_v","battery_shunt_v","battery_current" 
-        			req.body.pvs_id, req.body.panel_id, req.body.voc, req.body.isc, req.body.irradiation, req.body.cell_temp, req.body.amb_temp, req.body.humidity, req.body.cell_temp0, req.body.cell_temp1, req.body.cell_temp2, req.body.cell_temp3, req.body.cell_temp_avg, req.body.battery_bus_v, req.body.battery_shunt_v, req.body.battery_current];
+        var query = "INSERT INTO ??(??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        var table = ["panel_data","pvs_id","panel_id","voc","isc","irradiation","cell_temp","amb_temp","humidity","cell_temp0","cell_temp1","cell_temp2","cell_temp3","cell_temp_avg","battery_bus_v","battery_shunt_v","battery_current","analog_in","opamp_out", 
+        			req.body.pvs_id, req.body.panel_id, req.body.voc, req.body.isc, req.body.irradiation, req.body.cell_temp, req.body.amb_temp, req.body.humidity, req.body.cell_temp0, req.body.cell_temp1, req.body.cell_temp2, req.body.cell_temp3, req.body.cell_temp_avg, req.body.battery_bus_v, req.body.battery_shunt_v, req.body.battery_current, req.body.analog_in, req.body.opamp_out];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
