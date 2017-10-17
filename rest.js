@@ -314,8 +314,8 @@
     });	
 	
 	router.post("/battery",function(req,res){
-        var query = "INSERT INTO ??(??,??,??,??,??) VALUES (?,?,?,?,?)";
-        var table = ["battery_data","bus_v","shunt_v","load_v","current","power",req.body.bus_v,req.body.shunt_v,req.body.load_v,req.body.current,req.body.power];
+        var query = "INSERT INTO ??(??,??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        var table = ["battery_data","bus_v","shunt_v","load_v","current","power","irradiation","amb_temp","humidity","analog_in","opamp_out",req.body.bus_v,req.body.shunt_v,req.body.load_v,req.body.current,req.body.power,req.body.irradiation,req.body.amb_temp,req.body.humidity,req.body.analog_in,req.body.opamp_out];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
