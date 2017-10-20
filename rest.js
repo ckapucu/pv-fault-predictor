@@ -147,6 +147,19 @@
         });
     });
 
+	
+    router.get("/pandat/:pvs_id/:panel_id/limit",function(req,res){
+        var query = "SELECT * FROM ?? WHERE ??=? AND ??=? ORDER BY pvs_id, panel_id, recordno DESC LIMIT 50";
+		var table = ["panel_data","pvs_id",req.params.pvs_id,"panel_id",req.params.panel_id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Battery" : rows});
+            }
+        });
+    });		
 
     //sadece fotovoltaik sistem ID'sine göre o sistemdeki tüm panellerin verilerini çekme
     router.get("/pandat/:pvs_id",function(req,res){
@@ -174,7 +187,9 @@
                 res.json({"Error" : false, "Message" : "Silinen panel verileri pvsid: "+req.params.pvs_id+" panel id: "+req.params.panel_id});
             }
         });
-    }); 
+    });
+	
+
 
     //fotovoltaik sistem ekleme 
     router.post("/pvsdat",function(req,res){
