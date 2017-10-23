@@ -106,8 +106,8 @@
     //panel verisi ekleme 
     router.post("/pandat",function(req,res){
         var query = "INSERT INTO ??(??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        var table = ["panel_data","pvs_id","panel_id","voc","isc","irradiation","cell_temp","amb_temp","humidity","cell_temp0","cell_temp1","cell_temp2","cell_temp3","cell_temp_avg","battery_bus_v","battery_shunt_v","battery_current","analog_in","opamp_out", 
-        			req.body.pvs_id, req.body.panel_id, req.body.voc, req.body.isc, req.body.irradiation, req.body.cell_temp, req.body.amb_temp, req.body.humidity, req.body.cell_temp0, req.body.cell_temp1, req.body.cell_temp2, req.body.cell_temp3, req.body.cell_temp_avg, req.body.battery_bus_v, req.body.battery_shunt_v, req.body.battery_current, req.body.analog_in, req.body.opamp_out];
+        var table = ["panel_data","pvs_id","panel_id","voc","isc","irradiation","cell_temp","amb_temp","humidity","cell_temp0","cell_temp1","cell_temp2","cell_temp3","cell_temp_avg","battery_bus_v","battery_shunt_v","battery_current","analog_in","opamp_out","voc2","isc2","voc3","isc3","voc4","isc4", 
+        			req.body.pvs_id, req.body.panel_id, req.body.voc, req.body.isc, req.body.irradiation, req.body.cell_temp, req.body.amb_temp, req.body.humidity, req.body.cell_temp0, req.body.cell_temp1, req.body.cell_temp2, req.body.cell_temp3, req.body.cell_temp_avg, req.body.battery_bus_v, req.body.battery_shunt_v, req.body.battery_current, req.body.analog_in, req.body.opamp_out, req.body.voc2, req.body.isc2, req.body.voc3, req.body.isc3, req.body.voc4, req.body.isc4];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
@@ -156,7 +156,7 @@
             if(err) {
                 res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
             } else {
-                res.json({"Error" : false, "Message" : "Success", "Battery" : rows});
+                res.json({"Error" : false, "Message" : "Success", "Pandat" : rows});
             }
         });
     });		
