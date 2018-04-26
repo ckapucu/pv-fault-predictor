@@ -381,6 +381,96 @@
         });
     });
 	
+	
+    //Module_data moddat diye kısaltalım http verb olarak
+	
+    //modül verisi ekleme 
+    router.post("/moddat",function(req,res){
+        var query = "INSERT INTO ??(??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        var table = ["module_data","pvs_id","module_id","vmp","imp","irradiation","amb_temp","humidity","cell_temp0","cell_temp1","cell_temp2","cell_temp3","cell_temp_avg","analog_in","battery_bus_v","battery_shunt_v","battery_current", 
+        			req.body.pvs_id, req.body.module_id, req.body.vmp, req.body.imp, req.body.irradiation, req.body.amb_temp, req.body.humidity, req.body.cell_temp0, req.body.cell_temp1, req.body.cell_temp2, req.body.cell_temp3, req.body.cell_temp_avg, req.body.analog_in, req.body.battery_bus_v, req.body.battery_shunt_v, req.body.battery_current];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Panel verisi eklendi !"});
+            }
+        });
+    });
+
+    //tüm sistemlere ait modül verilerini çekme
+    router.get("/moddat",function(req,res){
+        var query = "SELECT * FROM ??";
+        var table = ["module_data"];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Moddat" : rows});
+            }
+        });
+    });
+
+
+    //fotovoltaik sistem ID'si ve modül ID'sine göre toplanmış verileri çekme
+    router.get("/moddat/:pvs_id/:module_id",function(req,res){
+        var query = "SELECT * FROM ?? WHERE ??=? AND ??=? ORDER BY pvs_id, module_id, created DESC";
+        var table = ["module_data","pvs_id",req.params.pvs_id,"module_id",req.params.module_id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Moddat" : rows});
+            }
+        });
+    });
+
+	
+    router.get("/moddat/:pvs_id/:module_id/limit",function(req,res){
+        var query = "SELECT * FROM ?? WHERE ??=? AND ??=? ORDER BY pvs_id, module_id, recordno DESC LIMIT 50";
+		var table = ["module_data","pvs_id",req.params.pvs_id,"module_id",req.params.module_id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Moddat" : rows});
+            }
+        });
+    });		
+
+    //sadece fotovoltaik sistem ID'sine göre o sistemdeki tüm modüllerin verilerini çekme
+    router.get("/moddat/:pvs_id",function(req,res){
+        var query = "SELECT * FROM ?? WHERE ??=? ORDER BY module_id, created";
+        var table = ["module_data","pvs_id",req.params.pvs_id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Moddat" : rows});
+            }
+        });
+    });    
+
+    //pvs idsine ve modül idsine göre panele ait tüm toplanmış verileri silme
+    router.delete("/moddat/:pvs_id/:module_id",function(req,res){
+        var query = "DELETE from ?? WHERE ??=? AND ??=?";
+        var table = ["module_data","pvs_id",req.params.pvs_id,"module_id",req.params.module_id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Silinen modul verileri pvsid: "+req.params.pvs_id+" module id: "+req.params.module_id});
+            }
+        });
+	
+	}); 	
+	
 }
 
 module.exports = REST_ROUTER;
