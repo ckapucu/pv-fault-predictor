@@ -99,6 +99,8 @@ curl -XPOST https://serene-depths-19169.herokuapp.com/api/pandat -d "pvs_id=1&pa
 curl -XPOST https://serene-depths-19169.herokuapp.com/api/pandat -d "pvs_id=1&panel_id=2&voc=1.2&isc=2.2&irradiation=3.2&cell_temp=4.2&amb_temp=5.2&humidity=6.2"
 curl -XPOST https://serene-depths-19169.herokuapp.com/api/pandat -d "pvs_id=1&panel_id=3&voc=1.3&isc=2.3&irradiation=3.3&cell_temp=4.3&amb_temp=5.3&humidity=6.3"
 
+curl -XPOST https://serene-depths-19169.herokuapp.com/api/moddat -d "pvs_id=1&panel_id=1&voc=1.1&isc=2.1&irradiation=3.1&cell_temp=4.1&amb_temp=5.1&humidity=6.1"
+
 GET
 ------------------
 curl -XGET http://localhost:5000/api/pandat
