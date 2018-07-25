@@ -1,19 +1,19 @@
 var connection = require('../connection');
 
-function Dize() {
+function Strarr() {
 
   this.get = function(res) {
     connection.acquire(function(err, con) {
-      con.query('select * from string_data', function(err, result) {
+      con.query('select * from strarr_data', function(err, result) {
         con.release();
         res.send(result);
       });
     });
   };   
 
-  this.create = function(dize, res) {
+  this.create = function(strarr, res) {
     connection.acquire(function(err, con) {
-      con.query('insert into string_data set ?', dize, function(err, result) {
+      con.query('insert into strarr_data set ?', strarr, function(err, result) {
         con.release();
         if (err) {
           res.send({status: 1, message: 'String data creation failed'});
@@ -25,4 +25,4 @@ function Dize() {
   };
 }
 
-module.exports = new Dize();
+module.exports = new Strarr();
