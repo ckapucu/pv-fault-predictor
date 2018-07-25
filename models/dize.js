@@ -77,4 +77,4 @@ function Dize() {
   };
 }
 
-dize.exports = new Dize();
+module.exports = new Dize();
