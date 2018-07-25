@@ -484,6 +484,109 @@
         });
     });		
 	
+	
+    //String_data strdat diye kısaltalım http verb olarak
+	
+    //dize verisi ekleme 
+    router.post("/strdat",function(req,res){
+        var query = "INSERT INTO ??(??,??,??,??,??,??,??,??,??,??,??,??,??,??,??,??) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        var table = ["string_data","pvs_id","string_id","vmp","imp","pmp","irradiation","amb_temp","humidity","cell_temp0","cell_temp1","cell_temp2","cell_temp3","cell_temp_avg","analog_in", 
+        			req.body.pvs_id, req.body.module_id, req.body.vmp, req.body.imp, req.body.irradiation, req.body.amb_temp, req.body.humidity, req.body.cell_temp0, req.body.cell_temp1, req.body.cell_temp2, req.body.cell_temp3, req.body.cell_temp_avg, req.body.analog_in];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Dize verisi eklendi !"});
+            }
+        });
+    });
+
+    //tüm sistemlere ait modül verilerini çekme
+    router.get("/strdat",function(req,res){
+        var query = "SELECT * FROM ??";
+        var table = ["string_data"];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Strdat" : rows});
+            }
+        });
+    });
+
+
+    //fotovoltaik sistem ID'si ve modül ID'sine göre toplanmış verileri çekme
+    router.get("/strdat/:pvs_id/:string_id",function(req,res){
+        var query = "SELECT * FROM ?? WHERE ??=? AND ??=? ORDER BY pvs_id, string_id, created DESC";
+        var table = ["string_data","pvs_id",req.params.pvs_id,"string_id",req.params.string_id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Strdat" : rows});
+            }
+        });
+    });
+
+	
+    router.get("/strdat/:pvs_id/:string_id/limit",function(req,res){
+        var query = "SELECT * FROM ?? WHERE ??=? AND ??=? ORDER BY pvs_id, string_id, recordno DESC LIMIT 50";
+		var table = ["string_data","pvs_id",req.params.pvs_id,"string_id",req.params.string_id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Strdat" : rows});
+            }
+        });
+    });		
+
+    //sadece fotovoltaik sistem ID'sine göre o sistemdeki tüm modüllerin verilerini çekme
+    router.get("/strdat/:pvs_id",function(req,res){
+        var query = "SELECT * FROM ?? WHERE ??=? ORDER BY string_id, created";
+        var table = ["string_data","pvs_id",req.params.pvs_id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Strdat" : rows});
+            }
+        });
+    });    
+
+    //pvs idsine ve modül idsine göre panele ait tüm toplanmış verileri silme
+    router.delete("/strdat/:pvs_id/:string_id",function(req,res){
+        var query = "DELETE from ?? WHERE ??=? AND ??=?";
+        var table = ["string_data","pvs_id",req.params.pvs_id,"string_id",req.params.string_id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Silinen dize verileri pvsid: "+req.params.pvs_id+" string id: "+req.params.string_id});
+            }
+        });
+	
+	});
+	
+	router.get("/strdat/limit",function(req,res){
+        var query = "SELECT * FROM ?? ORDER BY recordno DESC LIMIT 50";
+		var table = ["string_data"];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Strdat" : rows});
+            }
+        });
+    });			
+	
 }
 
 module.exports = REST_ROUTER;
