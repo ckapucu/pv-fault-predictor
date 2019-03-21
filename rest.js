@@ -545,6 +545,20 @@
         });
     });		
 
+
+    router.get("/strdat/:pvs_id/:strarr_id/last10",function(req,res){
+        var query = "SELECT * FROM ?? WHERE ??=? AND ??=? ORDER BY pvs_id, strarr_id, recordno DESC LIMIT 10";
+        var table = ["strarr_data","pvs_id",req.params.pvs_id,"strarr_id",req.params.strarr_id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "SQL sorgusunda hata"});
+            } else {
+                res.json({"Error" : false, "Message" : "Success", "Strdat" : rows});
+            }
+        });
+    });
+
     //sadece fotovoltaik sistem ID'sine göre o sistemdeki tüm modüllerin verilerini çekme
     router.get("/strdat/:pvs_id",function(req,res){
         var query = "SELECT * FROM ?? WHERE ??=? ORDER BY strarr_id, created";
