@@ -546,6 +546,7 @@
     });		
 
 
+    // fv sistem ID'sine ve fv dizi numarasına göre son 10 izleme örneği
     router.get("/strdat/:pvs_id/:strarr_id/last10",function(req,res){
         var query = "SELECT * FROM ?? WHERE ??=? AND ??=? ORDER BY pvs_id, strarr_id, recordno DESC LIMIT 10";
         var table = ["strarr_data","pvs_id",req.params.pvs_id,"strarr_id",req.params.strarr_id];
