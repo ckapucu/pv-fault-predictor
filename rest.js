@@ -543,8 +543,7 @@
                 res.json({"Error" : false, "Message" : "Success", "Strdat" : rows});
             }
         });
-    });		
-
+    });
 
     // fv sistem ID'sine ve fv dizi numarasına göre son 10 izleme örneği
     router.get("/strdat/:pvs_id/:strarr_id/last10",function(req,res){
