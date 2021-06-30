@@ -6,5 +6,9 @@ In this project, we developed a Flask backend API for an ensemble-based classifi
 
 ## Authors
 
-- [@ckapucu](https://www.github.com/ckapucu)
+- [@ckapucu](https://www.github.com/ckapucu), [@cubukcu](#)
 
+## Fault Effects
+
+![Fault effects](https://user-images.githubusercontent.com/9140821/123938793-1ed1e900-d9a0-11eb-8425-1e792d4e7545.png)
+Figure: The effects of (a) Shading, (b) Short-circuit fault scenarios in the PV string.
