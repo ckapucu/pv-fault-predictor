@@ -112,21 +112,25 @@ def predict(data):
     Vstr = rawData[0][0]
     Istr = rawData[0][1] 
     Pstr = rawData[0][2] 
+
 	# 19824 is theoritical power (mW) of the experimental PV system
     Prel = Pstr/19824
 
     inputData = np.array([Vstr, Istr, Pstr, G, Tc, Prel], dtype=float)   
 
+
 	# to prevent predict_proba's raising a warning alert
     inputData = inputData.reshape(1, -1) 
 
-    # Predict probability for classes
+   
+   # Predict probability for classes
     rawPrediction = clr.predict_proba(inputData)[0]
     predictionIndex = np.argmax(rawPrediction, axis=0)
     predictionAccuracy = rawPrediction[predictionIndex]
     predictionValue = predictionIndex
 
-	# STOP TİMER
+
+	# stop timer
     e = time.clock() 
     predictionTime = e - s
 
@@ -147,6 +151,7 @@ def predict(data):
 @app.route('/', methods=['GET', 'POST'])
 def home():
     
+
 	# render home page 
     return render_template("home_template.html")
 
