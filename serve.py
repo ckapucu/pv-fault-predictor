@@ -101,7 +101,7 @@ def predict(data):
     
     rawData = np.array([(eval(data_list[0]), eval(data_list[1]), eval(data_list[2]), eval(data_list[3]), eval(data_list[4]))], dtype=float)
 
-	# start timer
+    # start timer
     s = time.clock() 
 
     G = rawData[0][3]
