@@ -113,17 +113,17 @@ def predict(data):
     Istr = rawData[0][1] 
     Pstr = rawData[0][2] 
 
-	# 19824 is theoritical power (mW) of the experimental PV system
+    # 19824 is theoritical power (mW) of the experimental PV system
     Prel = Pstr/19824
 
     inputData = np.array([Vstr, Istr, Pstr, G, Tc, Prel], dtype=float)   
 
 
-	# to prevent predict_proba's raising a warning alert
+    # to prevent predict_proba's raising a warning alert
     inputData = inputData.reshape(1, -1) 
 
    
-   # Predict probability for classes
+    # Predict probability for classes
     rawPrediction = clr.predict_proba(inputData)[0]
     predictionIndex = np.argmax(rawPrediction, axis=0)
     predictionAccuracy = rawPrediction[predictionIndex]
