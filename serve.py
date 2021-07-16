@@ -130,8 +130,8 @@ def predict(data):
     predictionValue = predictionIndex
 
 
-	# stop timer
-    e = time.clock() 
+    # stop timer
+    e = time.clock()
     predictionTime = e - s
 
     # send e-mail if predicted
